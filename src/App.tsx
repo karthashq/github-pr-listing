@@ -1,24 +1,17 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import SearchBar from './components/SearchBar/SearchBar';
+import SearchResult from './components/SearchResult/SearchResult';
 
 function App() {
+
+  const [repo, setRepo] = useState<string>("");
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className="w-full">
+      <header className="font-bold text-2xl m-2 text-center">
+        Pull Requests
       </header>
+      <SearchBar updateRepo={setRepo} />
+      {repo && <SearchResult repo={repo} />}
     </div>
   );
 }
