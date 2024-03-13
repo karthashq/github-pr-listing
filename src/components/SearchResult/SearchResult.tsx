@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { GET_REPO_DETAILS } from '../../utils/constants';
+import { GET_REPO_DETAILS, GITHUB_AUTH_TOKEN } from '../../utils/constants';
 import PRListingTable from '../PRListingTable/PRListingTable';
+import { useFetchGetAPI } from '../../hooks/useFetchGetAPI';
 
 
 type Props = { repo: string };
@@ -9,6 +10,7 @@ type Props = { repo: string };
 
 const SearchResult = ({ repo }: Props) => {
 
+  const callGitHubAPI = useFetchGetAPI();
 
   useEffect(() => {
     getRepoDetails();
@@ -17,7 +19,7 @@ const SearchResult = ({ repo }: Props) => {
 
   const getRepoDetails = async () => {
     try {
-      let response = await fetch(GET_REPO_DETAILS.replace("%OWNER/REPO%", repo));
+      let response = await callGitHubAPI(GET_REPO_DETAILS.replace("%OWNER/REPO%", repo));
       response = await response.json();
     } catch (error) {
       console.log(error);

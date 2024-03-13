@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Pagination from '../Pagination/Pagination';
-import { GET_PR_DETAIL_URL, GET_PULL_REQUESTS_URL } from '../../utils/constants';
+import { GET_PR_DETAIL_URL, GET_PULL_REQUESTS_URL, GITHUB_AUTH_TOKEN } from '../../utils/constants';
+import { useFetchGetAPI } from '../../hooks/useFetchGetAPI';
 
 
 type Props = { repo: string };
@@ -18,6 +19,8 @@ export type prData = {
 const recordsPerPage = 10;
 
 const PRListingTable = ({ repo }: Props) => {
+
+    const callGitHubAPI = useFetchGetAPI();
 
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -44,7 +47,7 @@ const PRListingTable = ({ repo }: Props) => {
             setIsLoading(true);
             setPRList(undefined);
             const request_url = GET_PULL_REQUESTS_URL.replace("%OWNER/REPO%", repo).replace("%page%", page.toString()).replace("%per_page%", recordsPerPage.toString());
-            let response: any = await fetch(request_url);
+            let response: any = await callGitHubAPI(request_url);
 
             /* fetching the last page number from the response headers */
 
@@ -68,10 +71,9 @@ const PRListingTable = ({ repo }: Props) => {
             });
 
 
-            const neededComments = false;
             //setting random comments to avoid API calls,(to avoid API limmiter issue)
-            if (neededComments) {
-                //setting up the comments seperately as unable to find comments count in the GET_PULL_REQUESTS_URL listing API
+            if (GITHUB_AUTH_TOKEN) {
+            //setting up the comments seperately if auth token is provided, else find comments count in the GET_PULL_REQUESTS_URL listing API
                 await setCommentsinPRList(data);
             } else {
                 setPRList(data);
@@ -95,7 +97,7 @@ const PRListingTable = ({ repo }: Props) => {
             for (let i = 0; i < data.length; i++) {
                 let prInfo = data[i];
                 const request_url = GET_PR_DETAIL_URL.replace("%OWNER/REPO%", repo).replace("%PR_ID%", prInfo.prNo.toString());
-                let response: any = await fetch(request_url);
+                let response: any = await callGitHubAPI(request_url);
                 response = await response.json();
                 // console.log(request_url, response.comments);
                 prInfo.comments = response.comments;

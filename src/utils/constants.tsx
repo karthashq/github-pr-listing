@@ -14,3 +14,7 @@ export const GET_PULL_REQUESTS_URL = "https://api.github.com/repos/%OWNER/REPO%/
 export const GET_PR_DETAIL_URL = "https://api.github.com/repos/%OWNER/REPO%/pulls/%PR_ID%";
 
 
+
+export const GITHUB_AUTH_TOKEN = "";
+
+
