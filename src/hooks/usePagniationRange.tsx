@@ -1,6 +1,8 @@
 import React, { useMemo } from 'react';
 import { getRage } from "../utils/utils";
 
+
+// contains the pagination range buttons display logic
 export const usePaginationRange = ({
     totalPages = 10,
     siblingCount = 1, // refers to the number of pages to display before and after a page
