@@ -7,7 +7,7 @@ type Props = {
 
 const SearchBar = ({ updateRepo }: Props) => {
 
-    let [searchedRepo, setRepoName] = useState("facebook/react");
+    let [searchedRepo, setRepoName] = useState("");
 
     let searchBox = useRef<HTMLInputElement>(null);
 
