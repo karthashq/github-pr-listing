@@ -41,7 +41,7 @@ const SearchBar = ({ updateRepo }: Props) => {
                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                         </svg>
                     </div>
-                    <input id="search" ref={searchBox} type="search"
+                    <input id="search" ref={searchBox} type="search" aria-label='Search repository by owner/repo or URL'
                         className="block w-full p-4 pl-8 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
                         placeholder="Enter repo name / url " value={searchedRepo} onChange={changeSearchBarText} required />
                     <button className="text-white absolute inset-y-0 end-0 m-2 bg-blue-700 hover:bg-blue-800 focus:border-black font-medium rounded-lg text-sm px-4 py-2"

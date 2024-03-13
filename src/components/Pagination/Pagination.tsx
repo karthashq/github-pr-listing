@@ -29,11 +29,10 @@ const Pagination = ({ nPages, currentPage, setCurrentPage }: Props) => {
 
     return (
         <nav className="my-3" aria-label="Pagination">
+            <h2 className="sr-only">Pagination</h2>
             <ul className='flex justify-center '>
-                {currentPage !== 1 && <li className="border hover:bg-gray-200 px-2 py-1">
-                    <a onClick={goToPrevPage} href='#'>
-                        Previous
-                    </a>
+                {currentPage !== 1 && <li className="border hover:bg-gray-200 px-2 py-1 rounded-md">
+                    <button aria-label="Go to previous page" onClick={goToPrevPage}>Previous</button>
                 </li>}
                 {paginationRange.map(pgNumber => (
                     <li key={pgNumber}
@@ -41,17 +40,18 @@ const Pagination = ({ nPages, currentPage, setCurrentPage }: Props) => {
                         ${currentPage === pgNumber ? ' md:bg-gray-300 block' : 'hidden'} 
 
                         `} >
-                        <a onClick={() => setCurrentPage(pgNumber)}
-                            href='#'>
+                        <button onClick={() => setCurrentPage(pgNumber)}
+                            aria-current={currentPage === pgNumber ? 'page' : undefined}
+                            aria-label={`Go to ${pgNumber} page`}>
                             {pgNumber}
-
-                        </a>
+                        </button>
                     </li>
                 ))}
                 {currentPage !== lastPage && <li className="rounded-md border hover:bg-gray-200 px-2 py-1">
-                    <a onClick={goToNextPage} href='#'>
+
+                    <button aria-label="Go to next page" onClick={goToNextPage}>
                         Next
-                    </a>
+                    </button>
                 </li>}
             </ul>
         </nav>

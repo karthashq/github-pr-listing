@@ -11,7 +11,7 @@ const SearchResult = ({ repo }: Props) => {
 
 
   useEffect(() => {
-    // getRepoDetails();
+    getRepoDetails();
   }, [repo]);
 
 
